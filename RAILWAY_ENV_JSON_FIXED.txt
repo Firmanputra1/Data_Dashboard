@@ -1,0 +1,13 @@
+{
+  "APP_NAME": "Data Dashboard",
+  "APP_ENV": "production",
+  "APP_KEY": "base64:7wsOci1+cln3cKvy5QCXn8qH+n7z8d+z5O9HqpRqEQw=",
+  "APP_DEBUG": "false",
+  "APP_URL": "https://datadashboard-production-68f6.up.railway.app",
+  "DB_CONNECTION": "mysql",
+  "LOG_CHANNEL": "stderr",
+  "LOG_LEVEL": "error",
+  "SESSION_DRIVER": "file",
+  "SESSION_LIFETIME": "120"
+}
+
