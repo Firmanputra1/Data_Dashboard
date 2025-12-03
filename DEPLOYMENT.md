@@ -110,12 +110,24 @@ Setelah deploy pertama, jalankan migration dan seeder:
 -   Pastikan `APP_DEBUG=false` di production
 -   Pastikan `APP_KEY` sudah di-set
 
+### Error: "Writing app - Is a directory (os error 21)"
+
+**Error:** `Writing app - Is a directory (os error 21)`
+
+**Solusi:**
+
+-   Konflik konfigurasi antara multiple config files
+-   Sudah diperbaiki dengan menyederhanakan konfigurasi:
+    -   Menghapus `.nixpacks` file
+    -   Menghapus `railway.json` (hanya gunakan `railway.toml`)
+    -   Menghapus cache commands dari build phase
+-   Pastikan hanya satu file config yang digunakan
+-   Lihat `FIX_DEPLOY_ERROR.md` untuk detail lengkap
+
 ## File Konfigurasi
 
 Project ini sudah include:
 
--   `railway.json` - Konfigurasi Railway
--   `railway.toml` - Konfigurasi alternatif Railway dengan PHP 8.1
--   `nixpacks.toml` - Konfigurasi Nixpacks untuk PHP 8.1
--   `Procfile` - Start command untuk web server
+-   `railway.toml` - Konfigurasi Railway dengan PHP 8.1 (file utama)
+-   `Procfile` - Start command untuk web server (backup)
 -   `composer.json` - Updated ke PHP 8.1
