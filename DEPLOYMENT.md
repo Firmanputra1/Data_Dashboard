@@ -46,14 +46,16 @@ SESSION_LIFETIME=120
 ```
 
 **Catatan penting:**
-- `APP_KEY` harus digenerate dengan command: `php artisan key:generate`
-- `${{MySQL.*}}` adalah variable references untuk MySQL service di Railway (otomatis)
+
+-   `APP_KEY` harus digenerate dengan command: `php artisan key:generate`
+-   `${{MySQL.*}}` adalah variable references untuk MySQL service di Railway (otomatis)
 
 ### 4. Setup Build & Deploy
 
 Railway akan otomatis mendeteksi:
-- `railway.json` atau `railway.toml` untuk konfigurasi
-- `Procfile` untuk start command
+
+-   `railway.json` atau `railway.toml` untuk konfigurasi
+-   `Procfile` untuk start command
 
 Pastikan file-file ini sudah ada di repository.
 
@@ -64,10 +66,10 @@ Setelah deploy pertama, jalankan migration dan seeder:
 1. Di Railway dashboard, buka tab "Variables"
 2. Tambahkan variable `RAILWAY_ENABLE_DEPLOYMENT_HOOKS=true`
 3. Atau jalankan manual via Railway CLI:
-   ```bash
-   railway run php artisan migrate --force
-   railway run php artisan db:seed --force
-   ```
+    ```bash
+    railway run php artisan migrate --force
+    railway run php artisan db:seed --force
+    ```
 
 ### 6. Setup Custom Domain (Opsional)
 
@@ -77,23 +79,43 @@ Setelah deploy pertama, jalankan migration dan seeder:
 
 ## Troubleshooting
 
+### Build Error: "php80 has been dropped"
+
+**Error:** `error: php80 has been dropped due to the lack of maintenance from upstream`
+
+**Solusi:**
+
+-   Project sudah di-update ke PHP 8.1
+-   Pastikan file `nixpacks.toml` ada di repository
+-   File `composer.json` sudah menggunakan `"php": "^8.1"`
+-   Jika masih error, pastikan Railway menggunakan PHP 8.1 dengan menambahkan variable:
+    ```
+    PHP_VERSION=8.1
+    NIXPACKS_PHP_VERSION=8.1
+    ```
+
 ### Database Connection Error
-- Pastikan MySQL service sudah dibuat dan di-link ke web service
-- Pastikan environment variables menggunakan format `${{MySQL.*}}`
+
+-   Pastikan MySQL service sudah dibuat dan di-link ke web service
+-   Pastikan environment variables menggunakan format `${{MySQL.*}}`
 
 ### Migration Error
-- Pastikan database sudah dibuat
-- Pastikan user database memiliki permission yang cukup
+
+-   Pastikan database sudah dibuat
+-   Pastikan user database memiliki permission yang cukup
 
 ### 500 Error
-- Check logs di Railway dashboard
-- Pastikan `APP_DEBUG=false` di production
-- Pastikan `APP_KEY` sudah di-set
+
+-   Check logs di Railway dashboard
+-   Pastikan `APP_DEBUG=false` di production
+-   Pastikan `APP_KEY` sudah di-set
 
 ## File Konfigurasi
 
 Project ini sudah include:
-- `railway.json` - Konfigurasi Railway
-- `railway.toml` - Konfigurasi alternatif Railway
-- `Procfile` - Start command untuk web server
 
+-   `railway.json` - Konfigurasi Railway
+-   `railway.toml` - Konfigurasi alternatif Railway dengan PHP 8.1
+-   `nixpacks.toml` - Konfigurasi Nixpacks untuk PHP 8.1
+-   `Procfile` - Start command untuk web server
+-   `composer.json` - Updated ke PHP 8.1
